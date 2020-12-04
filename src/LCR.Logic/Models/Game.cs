@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace LCR.Logic.Models
 {
@@ -10,5 +9,7 @@ namespace LCR.Logic.Models
         public List<Player> Players { get; set; }
 
         public int RoundNumber { get; set; }
+
+        public int EmptyPlayers { get; set; }
     }
 }
