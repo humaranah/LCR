@@ -1,4 +1,5 @@
-﻿using LCR.Logic.Models;
+﻿using LCR.Logic.Enums;
+using LCR.Logic.Models;
 using System;
 
 namespace LCR.Logic.Services
@@ -16,51 +17,62 @@ namespace LCR.Logic.Services
 
         public Game GameData { get; set; }
 
+        public Player CurrentPlayer =>
+            GameData.Players[_currentIndex];
+
+        public Player RightPlayer =>
+            GameData.Players[(_currentIndex + 1) % GameData.Players.Count];
+
+        public Player LeftPlayer =>
+            GameData.Players[(_currentIndex + GameData.Players.Count - 1) % GameData.Players.Count];
+
         public void PlayGame()
         {
             while (GameData.EmptyPlayers < GameData.Players.Count)
             {
-                _currentIndex = GetRight();
+                _currentIndex = (_currentIndex + 1) % GameData.Players.Count;
                 DoPlayerTurn();
+                ++GameData.TurnNumber;
             }
         }
 
-        private int GetRight() => (_currentIndex + 1) % GameData.Players.Count;
-
-        private int GetLeft() => (_currentIndex + GameData.Players.Count - 1) % GameData.Players.Count;
-
         private void DoPlayerTurn()
         {
-            var player = GameData.Players[_currentIndex];
-            if (player.ChipsCount == 0)
+            if (CurrentPlayer.ChipsCount == 0)
             {
                 return;
             }
 
-            var rollTimes = Math.Min(player.ChipsCount, 3);
+            var rollTimes = Math.Min(CurrentPlayer.ChipsCount, 3);
             foreach (var result in _diceService.RollDice(rollTimes))
             {
-                switch (result)
-                {
-                    case Enums.DiceFace.Left:
-                        --player.ChipsCount;
-                        ++GameData.Players[GetLeft()].ChipsCount;
-                        break;
-                    case Enums.DiceFace.Center:
-                        --player.ChipsCount;
-                        ++GameData.CenterPotCount;
-                        break;
-                    case Enums.DiceFace.Right:
-                        --player.ChipsCount;
-                        ++GameData.Players[GetRight()].ChipsCount;
-                        break;
-                }
+                UpdateChips(result);
             }
 
-            if (player.ChipsCount == 0)
+            if (CurrentPlayer.ChipsCount == 0)
             {
                 GameData.EmptyPlayers++;
             }
+        }
+
+        private void UpdateChips(DiceFace face)
+        {
+            switch (face)
+            {
+                case DiceFace.Dot:
+                    return;
+                case DiceFace.Center:
+                    ++GameData.CenterPotCount;
+                    break;
+                case DiceFace.Left:
+                    ++RightPlayer.ChipsCount;
+                    break;
+                case DiceFace.Right:
+                    ++LeftPlayer.ChipsCount;
+                    break;
+            }
+
+            --CurrentPlayer.ChipsCount;
         }
     }
 }

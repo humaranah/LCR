@@ -20,7 +20,7 @@ namespace LCR.Logic.Services
 
         public DiceService()
         {
-            _random = new Random();
+            _random = new Random(DateTime.Now.Millisecond);
         }
 
         public IEnumerable<DiceFace> RollDice(int times)

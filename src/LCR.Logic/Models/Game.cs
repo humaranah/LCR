@@ -8,7 +8,7 @@ namespace LCR.Logic.Models
 
         public List<Player> Players { get; set; }
 
-        public int RoundNumber { get; set; }
+        public int TurnNumber { get; set; }
 
         public int EmptyPlayers { get; set; }
     }

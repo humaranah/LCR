@@ -28,9 +28,8 @@ namespace LCR.Logic.Factories
                     GameData = new Game
                     {
                         Players = new List<Player>(
-                            Enumerable.Repeat(
-                                PlayerFactory.CreatePlayer(settings.ChipsPerPlayer),
-                                settings.PlayerCount))
+                            Enumerable.Range(0, settings.PlayerCount)
+                                .Select(i => PlayerFactory.CreatePlayer(i, settings.ChipsPerPlayer)))
                     }
                 });
         }
