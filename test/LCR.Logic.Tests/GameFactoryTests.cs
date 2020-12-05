@@ -1,11 +1,10 @@
 ﻿using LCR.Logic.Factories;
 using LCR.Logic.Models;
-using LCR.Logic.Services;
 using Xunit;
 
 namespace LCR.Logic.Tests
 {
-    public class GameServiceFactoryTests
+    public class GameFactoryTests
     {
         [Fact]
         public void Correct_GameSettings_ReturnsNoErrorMessage()
@@ -16,9 +15,9 @@ namespace LCR.Logic.Tests
                 ChipsPerPlayer = 1
             };
 
-            (string message, GameService service) = GameFactory.CreateGameService(gameSettings, null);
+            (string message, Game game) = GameFactory.CreateGame(gameSettings);
             Assert.Empty(message);
-            Assert.NotNull(service);
+            Assert.NotNull(game);
         }
 
         [Fact]
@@ -26,9 +25,9 @@ namespace LCR.Logic.Tests
         {
             var gameSettings = new GameSettings { PlayerCount = 2 };
 
-            (string message, GameService service) = GameFactory.CreateGameService(gameSettings, null);
+            (string message, Game game) = GameFactory.CreateGame(gameSettings);
             Assert.NotNull(message);
-            Assert.Null(service);
+            Assert.Null(game);
         }
 
         [Fact]
@@ -36,9 +35,9 @@ namespace LCR.Logic.Tests
         {
             var gameSettings = new GameSettings { ChipsPerPlayer = 0 };
 
-            (string message, GameService service) = GameFactory.CreateGameService(gameSettings, null);
+            (string message, Game game) = GameFactory.CreateGame(gameSettings);
             Assert.NotNull(message);
-            Assert.Null(service);
+            Assert.Null(game);
         }
     }
 }

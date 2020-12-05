@@ -10,7 +10,9 @@ namespace LCR.Logic.Factories
     {
         // Using DI with WPF implies adding code-behind in App.xaml to initialize the container.
         // I'm trying to keep clean the models.
-        public static (string, GameService) CreateGameService(GameSettings settings, IDiceService diceService)
+        public static GameService CreateGameService(IDiceService diceService) => new GameService(diceService);
+
+        public static (string, Game) CreateGame(GameSettings settings)
         {
             if (settings.PlayerCount < 3)
             {
@@ -23,14 +25,11 @@ namespace LCR.Logic.Factories
             }
 
             return (string.Empty,
-                new GameService(diceService)
+                new Game
                 {
-                    GameData = new Game
-                    {
-                        Players = new List<Player>(
-                            Enumerable.Range(0, settings.PlayerCount)
-                                .Select(i => PlayerFactory.CreatePlayer(i, settings.ChipsPerPlayer)))
-                    }
+                    Players = new List<Player>(
+                                Enumerable.Range(0, settings.PlayerCount)
+                                    .Select(i => PlayerFactory.CreatePlayer(i, settings.ChipsPerPlayer)))
                 });
         }
     }

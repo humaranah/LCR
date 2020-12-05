@@ -6,6 +6,8 @@ namespace LCR.Logic.Services
     {
         Game GameData { get; }
 
+        void Initialize(GameSettings settings);
+
         void PlayGame();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LCR.Logic.Enums;
+using LCR.Logic.Factories;
 using LCR.Logic.Models;
 using System;
 
@@ -6,15 +7,20 @@ namespace LCR.Logic.Services
 {
     public class GameService : IGameService
     {
+        #region Dependencies
         private readonly IDiceService _diceService;
+        #endregion
 
+        #region Attributes
         private int _currentIndex = -1;
+        #endregion
 
-        public GameService(IDiceService diceService)
-        {
-            _diceService = diceService;
-        }
+        #region Constructor
+        public GameService(IDiceService diceService) => _diceService = diceService;
+        #endregion
 
+        #region Properties
+        public string Error { get; set; }
         public Game GameData { get; set; }
 
         public Player CurrentPlayer =>
@@ -25,9 +31,22 @@ namespace LCR.Logic.Services
 
         public Player LeftPlayer =>
             GameData.Players[(_currentIndex + GameData.Players.Count - 1) % GameData.Players.Count];
+        #endregion
+
+        #region Public methods
+        public void Initialize(GameSettings settings)
+        {
+            (Error, GameData) = GameFactory.CreateGame(settings);
+            _currentIndex = -1;
+        }
 
         public void PlayGame()
         {
+            if (GameData == null)
+            {
+                return;
+            }
+
             while (GameData.EmptyPlayers < GameData.Players.Count)
             {
                 _currentIndex = (_currentIndex + 1) % GameData.Players.Count;
@@ -35,7 +54,9 @@ namespace LCR.Logic.Services
                 ++GameData.TurnNumber;
             }
         }
+        #endregion
 
+        #region Utility methods
         private void DoPlayerTurn()
         {
             if (CurrentPlayer.ChipsCount == 0)
@@ -74,5 +95,6 @@ namespace LCR.Logic.Services
 
             --CurrentPlayer.ChipsCount;
         }
+        #endregion
     }
 }
