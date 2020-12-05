@@ -2,6 +2,7 @@
 using LCR.Logic.Services;
 using Microsoft.Xaml.Behaviors.Core;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace LCR.ViewModels
@@ -81,20 +82,23 @@ namespace LCR.ViewModels
 
         public ICommand RunCommand { get; }
 
-        private void Run()
+        private async void Run()
         {
             IsBusy = true;
             try
             {
-                var gameManagement = new GameManagementService(_gameSettings);
-                (var error, var results) = gameManagement.RunGames();
-                if (!string.IsNullOrEmpty(error))
+                await Task.Run(() =>
                 {
-                    Output = error;
-                    return;
-                }
+                    var gameManagement = new GameManagementService(_gameSettings);
+                    (var error, var results) = gameManagement.RunGames();
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        Output = error;
+                        return;
+                    }
 
-                Output = $"Min: {results.Minimum}, Max: {results.Maximum}, Avg: {results.Average:0.2}";
+                    Output = $"Min: {results.Minimum}, Max: {results.Maximum}, Avg: {results.Average:00}";
+                });
             }
             finally
             {

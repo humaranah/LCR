@@ -1,4 +1,5 @@
-﻿using LCR.Logic.Factories;
+﻿using LCR.Logic.Constants;
+using LCR.Logic.Factories;
 using LCR.Logic.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace LCR.Logic.Services
 
         public (string, RunResults) RunGames()
         {
+            if (_settings.GameCount <= 0)
+            {
+                return (ErrorMessages.GamesCount, null);
+            }
+
             var diceService = DiceFactory.CreateDiceService();
             var gameService = GameFactory.CreateGameService(diceService);
 

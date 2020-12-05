@@ -10,9 +10,6 @@
 
     <Window.Resources>
         <cv:BooleanToVisibilityConverter x:Key="VisibleIfTrue"/>
-        <Style TargetType="Grid">
-            <Setter Property="Margin" Value="20"/>
-        </Style>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="18"/>
         </Style>
@@ -28,13 +25,16 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
@@ -43,21 +43,25 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Number of players"/>
-        <TextBox Text="{Binding PlayerCount}" Grid.Column="2"/>
+        <TextBlock Text="Number of players" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding PlayerCount}" Grid.Column="3" Grid.Row="1"/>
 
-        <TextBlock Text="Chips per player" Grid.Row="2"/>
-        <TextBox Text="{Binding ChipsPerPlayer}" Grid.Row="2" Grid.Column="2"/>
+        <TextBlock Text="Chips per player" Grid.Column="1" Grid.Row="3"/>
+        <TextBox Text="{Binding ChipsPerPlayer}" Grid.Row="3" Grid.Column="3"/>
 
-        <TextBlock Text="Number of games" Grid.Row="4"/>
-        <TextBox Text="{Binding GameCount}" Grid.Row="4" Grid.Column="2"/>
+        <TextBlock Text="Number of games" Grid.Row="5" Grid.Column="1" />
+        <TextBox Text="{Binding GameCount}" Grid.Row="5" Grid.Column="3"/>
 
-        <Button Content="Run games!" Command="{Binding RunCommand}" Grid.Row="6" />
+        <Button Content="Run games!" Command="{Binding RunCommand}" Grid.Row="7" Grid.Column="1" />
 
-        <TextBox Text="{Binding Output}" TextAlignment="Left" Grid.Column="4" Grid.RowSpan="8" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
+        <TextBlock Text="Results:" Grid.Row="1" Grid.Column="5"/>
+        <TextBox Text="{Binding Output}" TextAlignment="Left" Grid.Row="2" Grid.Column="5" Grid.RowSpan="7" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
 
-        <Rectangle Fill="LightGray" Opacity="0.8" Grid.ColumnSpan="5" Grid.RowSpan="8" Visibility="{Binding IsBusy, Converter={StaticResource VisibleIfTrue}}"/>
+        <Rectangle Fill="LightGray" Opacity="0.5" Grid.ColumnSpan="7" Grid.RowSpan="10" Visibility="{Binding IsBusy, Converter={StaticResource VisibleIfTrue}}"/>
+        <TextBlock Text="Loading..." Grid.ColumnSpan="7" Grid.RowSpan="10" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28"
+                    Visibility="{Binding IsBusy, Converter={StaticResource VisibleIfTrue}}"/>
     </Grid>
 </Window>
