@@ -14,7 +14,7 @@ namespace LCR.Logic.Services
             _settings = settings;
         }
 
-        public RunResults RunGames()
+        public (string, RunResults) RunGames()
         {
             var diceService = DiceFactory.CreateDiceService();
             var gameService = GameFactory.CreateGameService(diceService);
@@ -27,12 +27,19 @@ namespace LCR.Logic.Services
                 results.Add(gameService.GameData.TurnNumber);
             }
 
-            return new RunResults
+            try
             {
-                Minimum = results.Min(),
-                Maximum = results.Max(),
-                Average = results.Average()
-            };
+                return (null, new RunResults
+                {
+                    Minimum = results.Min(),
+                    Maximum = results.Max(),
+                    Average = results.Average()
+                });
+            }
+            catch
+            {
+                return (gameService.Error, null);
+            }
         }
     }
 }

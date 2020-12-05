@@ -10,6 +10,7 @@ namespace LCR.ViewModels
     {
         private readonly GameSettings _gameSettings;
         private readonly StringBuilder _output;
+        private bool _isBusy;
 
         public MainWindowViewModel()
         {
@@ -68,13 +69,37 @@ namespace LCR.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public ICommand RunCommand { get; }
 
         private void Run()
         {
-            var gameManagement = new GameManagementService(_gameSettings);
-            var results = gameManagement.RunGames();
-            Output = $"Min: {results.Minimum}, Max: {results.Maximum}, Avg: {results.Average}";
+            IsBusy = true;
+            try
+            {
+                var gameManagement = new GameManagementService(_gameSettings);
+                (var error, var results) = gameManagement.RunGames();
+                if (!string.IsNullOrEmpty(error))
+                {
+                    Output = error;
+                    return;
+                }
+
+                Output = $"Min: {results.Minimum}, Max: {results.Maximum}, Avg: {results.Average:0.2}";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
