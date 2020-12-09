@@ -2,8 +2,8 @@
 {
     public class GameSettings
     {
-        public int PlayerCount { get; set; }
-        public int ChipsPerPlayer { get; set; }
-        public int GameCount { get; set; }
+        public int PlayerCount { get; set; } = 3;
+        public int ChipsPerPlayer { get; set; } = 1;
+        public int GameCount { get; set; } = 1;
     }
 }

@@ -1,9 +1,19 @@
 ﻿<Application x:Class="LCR.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cv="clr-namespace:LCR.Converters"
              xmlns:vm="clr-namespace:LCR.ViewModels"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <vm:MainWindowViewModel x:Key="MainViewModel"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <cv:BooleanToVisibilityConverter x:Key="VisibleIfTrue"/>
+                    <cv:InverseBooleanConverter x:Key="NegateBool"/>
+                    <vm:GameViewModel x:Key="GameViewModel"/>
+                </ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

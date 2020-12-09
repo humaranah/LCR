@@ -7,13 +7,13 @@ using System.Windows.Input;
 
 namespace LCR.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class GameViewModel : ViewModelBase
     {
         private readonly GameSettings _gameSettings;
         private readonly StringBuilder _output;
         private bool _isBusy;
 
-        public MainWindowViewModel()
+        public GameViewModel()
         {
             _gameSettings = new GameSettings();
             _output = new StringBuilder();
@@ -60,22 +60,22 @@ namespace LCR.ViewModels
             }
         }
 
-        public string Output
-        {
-            get => _output.ToString();
-            set
-            {
-                _output.AppendLine(value);
-                NotifyPropertyChanged();
-            }
-        }
-
         public bool IsBusy
         {
             get => _isBusy;
             set
             {
                 _isBusy = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Output
+        {
+            get => _output.ToString();
+            set
+            {
+                _output.AppendLine(value);
                 NotifyPropertyChanged();
             }
         }

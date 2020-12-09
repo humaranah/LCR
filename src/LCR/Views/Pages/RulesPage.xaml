@@ -1,0 +1,46 @@
+﻿<Page x:Class="LCR.Views.Pages.RulesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LCR.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Style="{StaticResource PageStyle}"
+      Title="Rules">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Style="{StaticResource Heading}">"Left Center Right" (LCR)</TextBlock>
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Style="{StaticResource TextParagraph}">
+                    "Left Center Right" (LCR) is a simple dice game for which you are to write a simulation program.
+                    LCR uses three specially marked dice and three chips per player.
+                    The six-sided dice are marked with the following letters, each on one side of the dice L, C, and R.
+                    The other 3 sides of each dice are marked with a dot.
+                </TextBlock>
+                <TextBlock Style="{StaticResource TextParagraph}">
+                    The first player rolls three dice. She passes a chip either to the left, to the right, or to the center pot, depending on the roll of the dice.
+                    If any dots are rolled, the player retains her chip for that die. The next player then rolls 3 dice, one die for each chip she possesses, up to three chips.
+                    This player then passes chips as directed by the roll. If she should have less than three chips, she only rolls as many dice as he has chips.
+                    If she has no chips, she is not out of the game. She simply does NOT roll.
+                    Should the person to either side of her be required to pass her a chip, then she again has a chance to win the game and must roll again when her turn comes around.
+                </TextBlock>
+                <TextBlock Style="{StaticResource TextParagraph}">
+                    Turns to roll the dice pass in this manner around and around the table until only one player has chips.
+                    The last person having chips wins the game. She is not required to roll the dice.
+                </TextBlock>
+                <TextBlock Style="{StaticResource TextParagraph}">
+                    The simulator input is the number of people playing, which must be three or more, and the number of games to simulate.
+                    The simulator output is, by number of turns, the shortest length game, longest length game, and average length game.
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

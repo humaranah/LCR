@@ -1,67 +1,26 @@
 ﻿<Window x:Class="LCR.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:cv="clr-namespace:LCR.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        DataContext="{StaticResource MainViewModel}"
-        Title="Left Center Right" Height="450" Width="800" ResizeMode="CanMinimize">
+        Style="{StaticResource WindowStyle}"
+        Title="Left Center Right" Height="550" Width="900" ResizeMode="CanMinimize">
 
-    <Window.Resources>
-        <cv:BooleanToVisibilityConverter x:Key="VisibleIfTrue"/>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="18"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="TextAlignment" Value="Right"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Padding" Value="8"/>
-        </Style>
-    </Window.Resources>
-    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="Number of players" Grid.Column="1" Grid.Row="1"/>
-        <TextBox Text="{Binding PlayerCount}" Grid.Column="3" Grid.Row="1"/>
-
-        <TextBlock Text="Chips per player" Grid.Column="1" Grid.Row="3"/>
-        <TextBox Text="{Binding ChipsPerPlayer}" Grid.Row="3" Grid.Column="3"/>
-
-        <TextBlock Text="Number of games" Grid.Row="5" Grid.Column="1" />
-        <TextBox Text="{Binding GameCount}" Grid.Row="5" Grid.Column="3"/>
-
-        <Button Content="Run games!" Command="{Binding RunCommand}" Grid.Row="7" Grid.Column="1" />
-
-        <TextBlock Text="Results:" Grid.Row="1" Grid.Column="5"/>
-        <TextBox Text="{Binding Output}" TextAlignment="Left" Grid.Row="2" Grid.Column="5" Grid.RowSpan="7" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
-
-        <Rectangle Fill="LightGray" Opacity="0.5" Grid.ColumnSpan="7" Grid.RowSpan="10" Visibility="{Binding IsBusy, Converter={StaticResource VisibleIfTrue}}"/>
-        <TextBlock Text="Loading..." Grid.ColumnSpan="7" Grid.RowSpan="10" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28"
-                    Visibility="{Binding IsBusy, Converter={StaticResource VisibleIfTrue}}"/>
+        <TabControl BorderThickness="0,1,0,0">
+            <TabControl.Resources>
+                <Style TargetType="TabItem" BasedOn="{StaticResource MainTabItemStyle}"/>
+            </TabControl.Resources>
+            <TabItem Header="GAME">
+                <Frame Source="/Views/Pages/GamePage.xaml"/>
+            </TabItem>
+            <TabItem Header="RULES">
+                <Frame Source="/Views/Pages/RulesPage.xaml"/>
+            </TabItem>
+            <TabItem Header="ABOUT">
+                <Frame Source="/Views/Pages/AboutPage.xaml"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
