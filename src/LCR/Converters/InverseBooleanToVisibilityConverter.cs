@@ -5,26 +5,26 @@ using System.Windows.Data;
 
 namespace LCR.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class InverseBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is bool boolean))
             {
-                return Visibility.Collapsed;
+                return Visibility.Visible;
             }
 
-            return boolean ? Visibility.Visible : Visibility.Hidden;
+            return boolean ? Visibility.Hidden : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is Visibility visibility))
             {
-                return false;
+                return true;
             }
 
-            return visibility == Visibility.Visible;
+            return visibility != Visibility.Visible;
         }
     }
 }

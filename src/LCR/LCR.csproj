@@ -14,4 +14,8 @@
     <ProjectReference Include="..\LCR.Logic\LCR.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Images\tail-spin.png" />
+  </ItemGroup>
+
 </Project>

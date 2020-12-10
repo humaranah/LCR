@@ -10,6 +10,7 @@
                 <ResourceDictionary>
                     <cv:BooleanToVisibilityConverter x:Key="VisibleIfTrue"/>
                     <cv:InverseBooleanConverter x:Key="NegateBool"/>
+                    <cv:InverseBooleanToVisibilityConverter x:Key="HiddenIfTrue"/>
                     <vm:GameViewModel x:Key="GameViewModel"/>
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
