@@ -36,21 +36,20 @@
 
                 <TextBlock Text="Number of players"/>
                 <Slider Grid.Column="2" Minimum="3" Maximum="25" SmallChange="1" Value="{Binding PlayerCount}"
-                        IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}"/>
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}" TickFrequency="1" TickPlacement="BottomRight"/>
                 <TextBlock Grid.Column="4">
                     <Run Text="{Binding PlayerCount}"></Run> Players
                 </TextBlock>
 
                 <TextBlock Text="Chips per player" Grid.Row="2"/>
                 <Slider Grid.Row="2" Grid.Column="2" Minimum="1" Maximum="25" SmallChange="1" Value="{Binding ChipsPerPlayer}"
-                        IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}"/>
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}" TickFrequency="1" TickPlacement="BottomRight"/>
                 <TextBlock Grid.Row="2" Grid.Column="4">
                     <Run Text="{Binding ChipsPerPlayer}"></Run> Chips
                 </TextBlock>
 
                 <TextBlock Text="Number of games" Grid.Row="4"/>
-                <Slider Grid.Row="4" Grid.Column="2" Minimum="1" Maximum="100000" SmallChange="1" Value="{Binding GameCount}"
-                        IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}"/>
+                <TextBox Grid.Row="4" Grid.Column="2" Text="{Binding GameCount}" IsEnabled="{Binding IsBusy, Converter={StaticResource NegateBool}}"/>
                 <TextBlock Grid.Row="4" Grid.Column="4">
                     <Run Text="{Binding GameCount}"></Run> Games
                 </TextBlock>
